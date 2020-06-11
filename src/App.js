@@ -7,12 +7,16 @@ import Person from './Person/FPerson'
 const App = props => {
   // useState returns an array which we destructured as state, setState
   // It's similar to what we have in class-based comps too just that this keyword is absent
+  // useState() hooks can be used many times, most especially if there is a state that we don't want to change but still want to be displayed
   const [state, setState] = useState({
     persons: [
       { name: 'Jane', age: 21 },
       { name: 'Nat', age: 20 }
     ]
   })
+
+  const [otherState] = useState({ name: 'Edgar Davies' })
+  console.log(state, otherState)
 
   const changeNameHandler = () => {
     setState({
