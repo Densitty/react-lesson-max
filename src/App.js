@@ -15,7 +15,7 @@ const App = props => {
     ]
   })
 
-  const [otherState] = useState({ name: 'Edgar Davies' })
+  const [otherState, setotherState] = useState({ name: 'Edgar Davies' })
   console.log(state, otherState)
 
   const changeNameHandler = () => {
@@ -25,6 +25,7 @@ const App = props => {
         { name: 'Nathaniel Long', age: 22 }
       ]
     })
+    setotherState({ name: 'Edgar Davies' })
   }
 
   return (
