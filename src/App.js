@@ -5,8 +5,8 @@ import Person from './Person/Person'
 class App extends Component {
   state = {
     persons: [
-      { name: 'Jane', age: 21 },
-      { name: 'Nat', age: 20 }
+      { id: '1', name: 'Jane', age: 21 },
+      { id: '2', name: 'Nat', age: 20 }
     ],
     showPersons: false
   }
@@ -15,8 +15,8 @@ class App extends Component {
 
     this.setState({
       persons: [
-        { name: 'Jane Kroger', age: 21 },
-        { name: 'Nathaniel Long', age: 22 }
+        { id: '1', name: 'Jane Kroger', age: 21 },
+        { id: '2', name: 'Nathaniel Long', age: 22 }
       ]
     })
   }
@@ -28,9 +28,17 @@ class App extends Component {
     })
   }
 
-  // deletePersonHandler = () => {
-  //   const persons = this.state
-  // }
+  deletePersonHandler = (personIndex) => {
+    console.log(personIndex)
+    // The best practice is to create a copy of the this.state.persons object/array and mutate it instead of mutating the original persons object/array
+    // const updatedPersons = this.state.persons.slice() //or below
+    const updatedPersons = [...this.state.persons] //spread content of persons
+    console.log(updatedPersons)
+    updatedPersons.splice(personIndex, 1)
+    this.setState({ persons: updatedPersons })
+    console.log(this.state.persons)
+
+  }
 
   render() {
     let persons = null
@@ -38,10 +46,12 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map(person => {
+          {this.state.persons.map((person, index) => {
             return <Person
+              click={() => this.deletePersonHandler(index)}
               name={person.name}
               age={person.age}
+              key={person.id}
             />
           })}
         </div>
