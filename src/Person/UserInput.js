@@ -14,7 +14,18 @@ import React from 'react'
  */
 
 const Input = props => {
-  return <input type="text" placeholder={props.placeholder} onChange={props.change} />
+  const style = {
+    border: '2px solid red',
+    margin: '16px',
+    display: 'inline-block'
+  }
+
+  return <input
+    type="text"
+    style={style}
+    placeholder={props.placeholder}
+    onChange={props.change}
+  />
 }
 
 export default Input
