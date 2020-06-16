@@ -1,22 +1,38 @@
 import React from 'react'
-import Radium, { StyleRoot } from 'radium'
-import './Person.css'
+// import './Person.css'
+import styled from 'styled-components'
+
+// The styled-component is now a component which we can wrap around the div we want our function component to return
+const StyledDiv = styled.div`
+      width: 60%;
+      margin: 16px auto;
+      border: 1px solid #eee;
+      box-shadow: 0 2px 3px #ccc;
+      padding: 16px;
+      text-align: center;
+
+      @media (min-width: 500px) {
+        width: 450px
+    }
+    `
 
 const Person = (props) => {
   // media queries using Radium
-  const style = {
-    '@media (min-width: 500px)': {
-      width: '450px'
-    }
-  }
+
   return (
-    <StyleRoot>
+    <StyledDiv>
       <div className='Person'>
-        <p style={style} onClick={props.click}>I'm {props.name} and I'm {props.age} years old!</p>
+        <p onClick={props.click}>
+          I'm {props.name} and I'm {props.age} years old!
+          </p>
         <p>{props.children}</p>
+        <input type='text'
+          onChange={props.changed}
+          value={props.name}
+        />
       </div>
-    </StyleRoot>
+    </StyledDiv>
   )
 }
 
-export default Radium(Person)
+export default Person
