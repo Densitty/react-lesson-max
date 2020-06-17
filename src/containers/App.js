@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
-import Person from './Person/Person';
+import Persons from './../components/Persons/Persons';
+import Cockpit from './../components/Cockpit/Cockpit'
 
 class App extends Component {
   state = {
@@ -35,6 +36,7 @@ class App extends Component {
 
   deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice();
+    console.log('I am clicked')
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({ persons: persons });
@@ -48,46 +50,30 @@ class App extends Component {
   render() {
 
     let persons = null;
-    let btnClass = [classes.Button]
+    // let btnClass = [classes.Button]
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
       );
 
-      btnClass.push(classes.Red)
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // };
+
+
     }
 
-    const assignedclasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedclasses.push(classes.red); // classes = ['red']
-    }
-    if (this.state.persons.length <= 1) {
-      assignedclasses.push(classes.bold); // classes = ['red', 'bold']
-    }
+
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedclasses.join(' ')}>This is really working!</p>
-
-        <button className={btnClass.join(' ')} onClick={this.togglePersonsHandler}>
-          Toggle Persons
-        </button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+        />
         {persons}
       </div>
     );
