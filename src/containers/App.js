@@ -9,31 +9,25 @@ class App extends Component {
     super(props)
     console.log('In App.js - Contructor Runs')
     // a state object ppty can also be called here, but better to call it outside of the constructor
-    this.state = { persons: [{ id: 'asfa1', name: 'Karla', age: 28 }, { id: 'vasdf1', name: 'Jeff', age: 29 }, { id: 'asdf11', name: 'Alice', age: 26 }], otherState: 'some other value', showPersons: false }
+    this.state = {
+      persons: [
+        { id: 'asfa1', name: 'Karla', age: 28 },
+        { id: 'vasdf1', name: 'Jeff', age: 29 },
+        { id: 'asdf11', name: 'Alice', age: 26 }],
+      otherState: 'some other value',
+      showPersons: false
+    }
 
   }
-  // state = {
-  //   persons: [
-  //     { id: 'asfa1', name: 'Karla', age: 28 },
-  //     { id: 'vasdf1', name: 'Jeff', age: 29 },
-  //     { id: 'asdf11', name: 'Alice', age: 26 }
-  //   ],
-  //   otherState: 'some other value',
-  //   showPersons: false
-  // }
+
 
   static getDerivedStateFromProps(props, state) {
-    console.log('Inside App.js - getDerivedStateFromProps is calling.', props)
+    // console.log('Inside App.js - getDerivedStateFromProps is calling.', props)
     return state
   }
 
-  // not necessarily used - called before mounting occurs and before a component will be re-rendered
-  componentWillMount() {
-    console.log('App.js - Shall we see if component will mount?')
-  }
-
   componentDidMount() {
-    console.log('App.js - componentDidMount() is calling')
+    // console.log('App.js - componentDidMount() is calling')
   }
 
   nameChangedHandler = (event, id) => {
