@@ -3,7 +3,7 @@ import classes from './Person.module.css'
 
 
 const Person = (props) => {
-
+  console.log('Person.js is also rendering')
   return (
     <div className={classes.Person}>
       <p onClick={props.click}>

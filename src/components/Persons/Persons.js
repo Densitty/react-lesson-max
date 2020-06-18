@@ -4,6 +4,7 @@ import Person from './Person/Person'
 // props.deletePersonHandler(index)
 // (event) => props.nameChangedHandler(event, person.id)
 const Persons = props => {
+  console.log('Persons.js - is rendering')
   return (
     props.persons.map((person, index) => {
       return <Person
