@@ -1,94 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+// import classes from '*.module.css';
 import classes from './App.module.css';
-import Persons from './../components/Persons/Persons';
-import Cockpit from './../components/Cockpit/Cockpit'
 
-class App extends Component {
-  // initializing the Constructor function - basis for CB Component
-  constructor(props) {
-    super(props)
-    console.log('In App.js - Contructor Runs')
-    // a state object ppty can also be called here, but better to call it outside of the constructor
-    this.state = {
-      persons: [
-        { id: 'asfa1', name: 'Karla', age: 28 },
-        { id: 'vasdf1', name: 'Jeff', age: 29 },
-        { id: 'asdf11', name: 'Alice', age: 26 }],
-      otherState: 'some other value',
-      showPersons: false
-    }
+const App = props => {
+  const [buttonState, setButtonState] = useState('')
+  const [nameState, setNameState] = useState('John')
 
+  useEffect(() => {
+    console.log('UseEffect in action ', buttonState)
+  })
+
+  useEffect(() => {
+    setTimeout(() => {
+      setNameState('John Doe')
+      console.log('Calling useEffect again ...', nameState)
+    }, 5000)
+  })
+
+  // const componentDidMount = () => {
+  //   setButtonState('Yes')
+  //   console.log("Component did mount", setButtonState)
+  // }
+
+  // const componentDidUpdate = () => {
+  //   console.log("Component did update", this.state.buttonPressed)
+  // }
+
+  const onYesPress = () => {
+    setButtonState('Yes, John Doe will vote');
+    console.log('Yes button pressed')
+  }
+
+  const onNoPress = () => {
+    // setButtonState('No');
+    console.log('No, John Doe won\'t vote')
   }
 
 
-  static getDerivedStateFromProps(props, state) {
-    // console.log('Inside App.js - getDerivedStateFromProps is calling.', props)
-    return state
-  }
+  return (
+    < div className={classes.App} >
+      <h2>Will you vote for me, {nameState}?</h2>
+      <button onClick={() => onYesPress()}>
+        Yes
+      </button>
+      <button onClick={() => onNoPress()}>No</button>
+    </div >
+  );
 
-  componentDidMount() {
-    // console.log('App.js - componentDidMount() is calling')
-  }
-
-  nameChangedHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id;
-    });
-
-    // Copy the object into a new variable called person through spread operation
-    const person = {
-      ...this.state.persons[personIndex]
-    };
-
-    // const person = Object.assign({}, this.state.persons[personIndex]);
-
-    person.name = event.target.value;
-
-    const persons = [...this.state.persons];
-    persons[personIndex] = person;
-
-    this.setState({ persons: persons });
-  }
-
-  deletePersonHandler = (personIndex) => {
-    // const persons = this.state.persons.slice();
-    console.log('I am clicked')
-    const persons = [...this.state.persons];
-    persons.splice(personIndex, 1);
-    this.setState({ persons: persons });
-  }
-
-  togglePersonsHandler = () => {
-    const doesShow = this.state.showPersons;
-    this.setState({ showPersons: !doesShow });
-  }
-
-  render() {
-    console.log('App.js - We are rendering the content with render()')
-    let persons = null;
-
-    if (this.state.showPersons) {
-      persons = (
-        <Persons
-          persons={this.state.persons}
-          clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler}
-        />
-      );
-    }
-
-    return (
-      <div className={classes.App}>
-        <Cockpit
-          title={this.props.appTitle} //we are using Cockpit from a function based component in a class based component which doesnt have props but only this. Hence the use of this.props
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          clicked={this.togglePersonsHandler}
-        />
-        {persons}
-      </div>
-    );
-  }
 }
 
 export default App;
