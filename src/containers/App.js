@@ -1,52 +1,35 @@
-import React, { useState, useEffect } from 'react';
-// import classes from '*.module.css';
+import React, { Component } from 'react';
+import Child from './Child'
 import classes from './App.module.css';
 
-const App = props => {
-  const [buttonState, setButtonState] = useState('')
-  const [nameState, setNameState] = useState('John')
-
-  useEffect(() => {
-    console.log('UseEffect in action ', buttonState)
-  })
-
-  useEffect(() => {
-    setTimeout(() => {
-      setNameState('John Doe')
-      console.log('Calling useEffect again ...', nameState)
-    }, 5000)
-  })
-
-  // const componentDidMount = () => {
-  //   setButtonState('Yes')
-  //   console.log("Component did mount", setButtonState)
-  // }
-
-  // const componentDidUpdate = () => {
-  //   console.log("Component did update", this.state.buttonPressed)
-  // }
-
-  const onYesPress = () => {
-    setButtonState('Yes, John Doe will vote');
-    console.log('Yes button pressed')
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { show: true };
   }
 
-  const onNoPress = () => {
-    // setButtonState('No');
-    console.log('No, John Doe won\'t vote')
+  // or instead of using the contructor above, we can do below;
+  // state = {show: true}
+
+  delHeader = () => {
+    this.setState({ show: !this.state.show });
   }
 
 
-  return (
-    < div className={classes.App} >
-      <h2>Will you vote for me, {nameState}?</h2>
-      <button onClick={() => onYesPress()}>
-        Yes
-      </button>
-      <button onClick={() => onNoPress()}>No</button>
-    </div >
-  );
+  render() {
+    let myheader;
 
+    if (this.state.show) {
+      myheader = <Child />;
+    };
+
+    return (
+      <div className={classes.App}>
+        {myheader}
+        <button type="button" onClick={this.delHeader}>Delete Header</button>
+      </div>
+    );
+  }
 }
 
 export default App;
