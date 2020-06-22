@@ -1,4 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
+import Banner from './Banner'
+// import classes from './App.module.css';
+
+class App extends Component {
+  state = { buttonPressedCount: 0 };
+
+
+  render() {
+    const { buttonPressedCount } = this.state;
+
+    return (
+      <div className="new-component">
+        <h4>Button Pressed Count: {buttonPressedCount}</h4>
+        <button
+          onClick={() => {
+            return this.setState({ buttonPressedCount: buttonPressedCount + 1 })
+          }
+          }
+        >
+          Increase Count
+        </button>
+        <Banner type="info" />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+
+/**
+ * import React, { useState, useEffect } from 'react';
 import Child from './Child'
 import classes from './App.module.css';
 
@@ -35,3 +68,4 @@ const App = (props) => {
 }
 
 export default App;
+ */
