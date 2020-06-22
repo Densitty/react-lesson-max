@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
-import Banner from './Banner'
+import Child from './Child'
 // import classes from './App.module.css';
 
-class App extends Component {
-  state = { buttonPressedCount: 0 };
+export default class Parent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0,
+      message: 'Parent telling child \'Hellooo!\'',
+    };
+  }
 
+  handleClick = () => {
+    this.setState({ counter: this.state.counter + 1 });
+  };
 
   render() {
-    const { buttonPressedCount } = this.state;
-
+    console.log('parent rendered');
     return (
-      <div className="new-component">
-        <h4>Button Pressed Count: {buttonPressedCount}</h4>
-        <button
-          onClick={() => {
-            return this.setState({ buttonPressedCount: buttonPressedCount + 1 })
-          }
-          }
-        >
-          Increase Count
-        </button>
-        <Banner type="info" />
-      </div>
+      <main>
+        {this.state.counter}
+        <br />
+        <Child message={this.state.message} />
+        <button type='button' onClick={this.handleClick}>Increment</button>
+      </main>
     );
   }
 }
-
-export default App;
-
 
 
 /**
