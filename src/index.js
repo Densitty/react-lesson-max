@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './containers/App';
+// import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import Person from './containers/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App appTitle="Person Manager" />
+    <Person name={'John'} age={20} likesPizza={false}
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );
