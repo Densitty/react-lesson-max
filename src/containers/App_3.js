@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// import BlogInformation from './Child'
+// import withColor from './withColor'
+// import classes from './App.module.css';
 
 
 class App extends Component {
