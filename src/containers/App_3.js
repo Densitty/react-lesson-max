@@ -26,3 +26,31 @@ class App extends Component {
 }
 
 export default App
+
+/** Coming to this later */
+// import React, { useState, useRef } from 'react';
+
+
+// const App = props => {
+//   const inputElementRef = useRef("")
+//   const [showSayingState, setSayingState] = useState('')
+
+
+//   const update = () => {
+//     setSayingState({
+//       sayings: inputElementRef.value
+//     });
+//     return inputElementRef.current.value
+//   }
+
+//   return (
+//     <div>
+//       Reporter: <input type="text" ref={inputElementRef} onChange={() => update()} />
+//       <br />
+//       <em>John says "{inputElementRef.current.value}"</em>
+//     </div>
+//   );
+
+// }
+
+// export default App
