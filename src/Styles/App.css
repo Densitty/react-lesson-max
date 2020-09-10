@@ -113,7 +113,31 @@
 /*=======================================
                 CSSTRANSITIONS
 ========================================*/
+.false {
+  background-color: #feaaa3;
+  transform: translateX(-100%);
+}
 
+.true {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.square-enter .square-enter-active {
+  background-color: darkorchid;
+}
+
+.square-enter-done {
+  background: darkolivegreen;
+}
+
+.square-exit {
+  background-color: darkred;
+}
+
+.square-exit-active {
+  background-color: deeppink;
+}
 /*=======================================
                 TRANSITIONS GROUP 
 ========================================*/
