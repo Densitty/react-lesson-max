@@ -6,6 +6,7 @@ import './Styles/App.css';
 import CSStransition from './Components/CSSTransition';
 import Tgroup from './Components/Tgroup';
 import TransitionComp from './Components/Transition';
+import User from './Components/User'
 
 const App = () => {
   return (
@@ -15,10 +16,12 @@ const App = () => {
           <Link to="/transition">Transition</Link>
           <Link to="/csstransition">CSStransition</Link>
           <Link to="/tgroup">Transitions group</Link>
+          <Link to="/user">User</Link>
         </div>
         <Route path="/transition" component={TransitionComp}></Route>
         <Route path="/csstransition" component={CSStransition}></Route>
         <Route path="/tgroup" component={Tgroup}></Route>
+        <Route path="/user" component={User}></Route>
       </div>
     </BrowserRouter>
   )
