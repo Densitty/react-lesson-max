@@ -1,159 +1,62 @@
-.App {
-  text-align: center;
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.item {
-  background: #2196F3;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1px;
-  padding: 10px;
-}
-
-.btns {
-  margin-top: 20px;
-}
-
-.btn-add,
-.btn-remove {
-  background: #9E9E9E;
-  color: #FFf;
-  text-align: center;
-  padding: 10px;
-}
-
-.btn-remove {
-  background: #F44336;
-}
-
-.anim_index {
-  border-bottom: 1px solid #d4d4d4;
+header {
+  border-bottom: 1px solid #b6b6b6;
+  box-sizing: border-box;
+  padding: 17px;
+  background: #dfdfdf;
   margin-bottom: 10px;
-  background: #e0e0e0;
 }
 
-.anim_index a {
-  background: #E91E63;
-  display: inline-block;
-  margin: 5px;
+header a {
   padding: 5px 10px;
-  border-radius: 5px;
-  color: white;
+  background: #2196F3;
+  margin-right: 10px;
   text-decoration: none;
-  font-size: 12px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 500;
 }
 
-.showDiv {
-  background: #03A9F4;
-  color: white;
+.container {
   padding: 10px 20px;
-  display: inline-block;
-  cursor: pointer;
 }
 
-/*=======================================
-            TRANSITIONS BASIC 
-========================================*/
-.square {
-  background-color: red;
-  height: 100px;
-  opacity: 0;
-  transition: all 2s ease;
-  transform: translateX(-100%);
+.form_element {
+  margin: 20px 0px;
 }
 
-
-.square-entering {
-  opacity: 0.5;
-  /*transform: translateX(-100%);*/
+.form_element label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 300;
 }
 
-.square-entered {
-  opacity: 1;
-  background-color: darkmagenta;
-  transform: translateX(0%);
+input {
+  font-size: 20px;
+  padding: 8px 12px;
+  box-sizing: border-box;
 }
 
-.square-exiting {
-  background-color: rgb(158, 204, 50);
+button {
+  background: #3F51B5;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 20px;
 }
 
-.square-exited {
-  opacity: 0;
-  transform: translateX(-100%);
+select {
+  width: 236px;
+  font-size: 15px;
 }
 
-/*=======================================
-                CSSTRANSITIONS
-========================================*/
-.false {
-  background-color: #feaaa3;
-  transform: translateX(-100%);
-}
-
-.true {
-  transform: translateX(0%);
-  opacity: 1;
-}
-
-.square-enter.square-enter-active {
-  background-color: darkorchid;
-}
-
-.square-enter-done {
-  background: darkolivegreen;
-}
-
-.square-exit {
-  background-color: darkred;
-}
-
-.square-exit-active {
-  background-color: deeppink;
-}
-/*=======================================
-                TRANSITIONS GROUP 
-========================================*/
-.item {
-  opacity: 0;
-  transform: translateX(-100%);
-  transition: all 0.5s ease-in;
-}
-
-.active,
-.item-enter.item-enter-active {
-  opacity: 1;
-  transform: translateX(0%);
-}
-
-.item-exit.item-exit-active {
-  opacity: 0;
-  transform: translateX(100%);
+.label_error {
+  color: #FF5722;
+  font-weight: 600;
+  margin-top: 10px;
 }
