@@ -27,6 +27,7 @@ const FormFields = props => {
     let dataValues = data.settings;
 
     switch (dataValues.element) {
+      // for an input element
       case ('input'):
         // console.log(dataValues);
         formTemplate = (
@@ -38,6 +39,41 @@ const FormFields = props => {
           </div>
         );
         break;
+      // for a textarea
+      case ('textarea'):
+        formTemplate = (
+          <div>
+            {showLabel(dataValues.label, dataValues.labelText)}
+            <textarea
+              {...dataValues.config}
+              value={dataValues.value}
+              onChange={event => changeHandler(event, data.id)}
+            ></textarea>
+          </div>
+        )
+        break;
+      // for a select element
+      case ('select'):
+        formTemplate = (
+          <div>
+            {showLabel(dataValues.label, dataValues.labelText)}
+            <select
+              name={dataValues.config.name}
+              value={dataValues.value}
+              onChange={(event) => changeHandler(event, data.id)}
+            >
+              {dataValues.config.options.map((option, index) => {
+                return (
+                  <option key={index} value={option.val}>
+                    {option.text}
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+        )
+        break;
+      // for default or no form element 
       default:
         formTemplate = null
         break;
