@@ -1,26 +1,24 @@
-import React from 'react';
+import React from "react";
 
-const FormFields = props => {
-
+const FormFields = (props) => {
   const renderFields = () => {
     const formArray = [];
 
-    for (let elementName in props.formData) {
+    for (const elementName in props.formData) {
       formArray.push({
         id: elementName,
-        settings: props.formData[elementName]
-      })
+        settings: props.formData[elementName],
+      });
     }
-    // console.log(formArray)
+    // console.log(formArray);
     return formArray.map((element, index) => {
       return (
-        <div key={index} className='form_element'>
+        <div key={element.id} className="form_element">
           {renderTemplates(element)}
         </div>
-      )
-    })
-  }
-
+      );
+    });
+  };
 
   const renderTemplates = (data) => {
     let formTemplate = null;
@@ -28,14 +26,15 @@ const FormFields = props => {
 
     switch (dataValues.element) {
       // for an input element
-      case ('input'):
+      case "input":
         // console.log(dataValues);
         formTemplate = (
           <div>
             {showLabel(dataValues.label, dataValues.labelText)}
-            <input {...dataValues.config}
+            <input
+              {...dataValues.config}
               value={dataValues.value}
-              onChange={event => changeHandler(event, data.id, false)}
+              onChange={(event) => changeHandler(event, data.id, false)}
               onBlur={(event) => changeHandler(event, data.id, true)}
             />
             {showValidation(dataValues)}
@@ -43,20 +42,20 @@ const FormFields = props => {
         );
         break;
       // for a textarea
-      case ('textarea'):
+      case "textarea":
         formTemplate = (
           <div>
             {showLabel(dataValues.label, dataValues.labelText)}
             <textarea
               {...dataValues.config}
               value={dataValues.value}
-              onChange={event => changeHandler(event, data.id)}
+              onChange={(event) => changeHandler(event, data.id)}
             ></textarea>
           </div>
-        )
+        );
         break;
       // for a select element
-      case ('select'):
+      case "select":
         formTemplate = (
           <div>
             {showLabel(dataValues.label, dataValues.labelText)}
@@ -70,85 +69,80 @@ const FormFields = props => {
                   <option key={index} value={option.val}>
                     {option.text}
                   </option>
-                )
+                );
               })}
             </select>
           </div>
-        )
+        );
         break;
-      // for default or no form element 
+      // for default or no form element
       default:
-        formTemplate = null
+        formTemplate = null;
         break;
     }
-    return formTemplate
-  }
+    return formTemplate;
+  };
 
   const showLabel = (showLabel, labelText) => {
-    return showLabel ?
-      <label>{labelText}</label>
-      :
-      null;
-  }
+    return showLabel ? <label>{labelText}</label> : null;
+  };
 
   const changeHandler = (event, keyID, blur) => {
     // console.log(event.target.value)
-    const newState = props.formData;
+    const newState = { ...props.formData };
     // console.log(newState)
-    newState[keyID].value = event.target.value
+    newState[keyID].value = event.target.value;
 
     if (blur) {
-      let validData = validate(newState[keyID])
+      let validData = validate(newState[keyID]);
 
-      newState[keyID].valid = validData[0]
-      newState[keyID].validationMessage = validData[1]
+      newState[keyID].valid = validData[0];
+      newState[keyID].validationMessage = validData[1];
     }
 
-    newState[keyID].touched = blur
+    newState[keyID].touched = blur;
 
-    props.change(newState)
-  }
+    props.change(newState);
+  };
 
   const validate = (element) => {
-    console.log(element)
+    console.log(element);
     const inputLength = element.validation.minLength;
-    let error = [true, ''];
+    let error = [true, ""];
 
     if (inputLength) {
       const valid = element.value.length >= inputLength;
-      console.log(valid)
-      const message = `${!valid ? `The input must be at least ${inputLength} characters long` : ''}`;
-      error = !valid ? [valid, message] : error
+      console.log(valid);
+      const message = `${
+        !valid
+          ? `The input must be at least ${inputLength} characters long`
+          : ""
+      }`;
+      error = !valid ? [valid, message] : error;
     }
 
     if (element.validation.required) {
-      const valid = element.value.trim() !== '';
-      const message = `${!valid ? 'This field is required' : ''}`;
+      const valid = element.value.trim() !== "";
+      const message = `${!valid ? "This field is required" : ""}`;
 
-      error = !valid ? [valid, message] : error
+      error = !valid ? [valid, message] : error;
     }
 
     return error;
-  }
+  };
 
   const showValidation = (data) => {
     let errorMessage = null;
 
     if (data.validation && !data.valid) {
       errorMessage = (
-        <div className='label_error'>
-          {data.validationMessage}
-        </div>
-      )
+        <div className="label_error">{data.validationMessage}</div>
+      );
     }
-    return errorMessage
-  }
+    return errorMessage;
+  };
 
-  return (
-    <div>
-      {renderFields()}
-    </div>
-  )
-}
+  return <div>{renderFields()}</div>;
+};
 
-export default FormFields
+export default FormFields;
