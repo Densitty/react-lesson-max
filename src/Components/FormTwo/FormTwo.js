@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
+import * as Yup from "yup";
 
 class FormTwo extends Component {
   state = {
@@ -7,6 +8,19 @@ class FormTwo extends Component {
     minAge: 18,
     submitting: false,
   };
+
+  // yup works with schemas (structures)
+  myFormSchema = Yup.object().shape({
+    name: Yup.string().required("This item is required"),
+    lastname: Yup.string().required("Please provide your lastname"),
+    age: Yup.number()
+      .min(
+        this.state.minAge,
+        `You have to be at least ${this.state.minAge} years old to register.`
+      )
+      .required("Please provide your age"),
+    message: Yup.string().required("Kindly provide your message."),
+  });
 
   generateAgeOptions = () => {
     const ageArray = [];
@@ -28,32 +42,7 @@ class FormTwo extends Component {
       <>
         <Formik
           initialValues={{ name: "", lastname: "", age: "", message: "" }}
-          validate={(values) => {
-            // console.log(values);
-            const errors = {};
-
-            if (!values.name) {
-              errors.name = "Please provide your name";
-            }
-
-            if (!values.lastname) {
-              errors.lastname = "Please provide your lastname";
-            }
-
-            if (values.age) {
-              if (parseInt(values.age) <= this.state.minAge) {
-                errors.age = `You have to be at least ${this.state.minAge} years old to use our service`;
-              }
-            } else {
-              errors.age = "Please provide your age";
-            }
-
-            if (!values.age) {
-              errors.message = "Message is required";
-            }
-
-            return errors;
-          }}
+          validationSchema={this.myFormSchema}
           onSubmit={(values, { resetForm }) => {
             // onSubmit will run only when validation is done
             this.setState({ submitting: !this.state.submitting });
