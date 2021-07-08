@@ -1,24 +1,45 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Switch, NavLink } from "react-router-dom";
 
-// Components
-import Header from './Components/Header';
-import Uncontrolled from './Components/Uncontrolled';
-import Controlled from './Components/Controlled';
-import User from './Components/User';
+import FormOne from "./Components/FormOne/FormOne";
+import FormTwo from "./Components/FormTwo/FormTwo";
 
+const Routes = () => (
+  <>
+    <header>
+      <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom">
+        <h5 className="my-0 mr-md-auto font-weight-normal">MyApp</h5>
+        <nav className="my-2 my-md-0 mr-md-3">
+          <NavLink
+            to="/"
+            className="p-2 text-dark"
+            exact
+            activeStyle={{ color: "red" }}
+            activeClassName="selected"
+          >
+            Form one
+          </NavLink>
 
-const Routes = () => {
-  return (
-    <div>
-      <Header />
+          <NavLink
+            to="/formTwo"
+            className="p-2 text-dark"
+            exact
+            activeStyle={{ color: "red" }}
+            activeClassName="selected"
+          >
+            Form two
+          </NavLink>
+        </nav>
+      </div>
+    </header>
+
+    <div className="container">
       <Switch>
-        <Route path="/uncontrolled" exact component={Uncontrolled} />
-        <Route path="/controlled" exact component={Controlled} />
-        <Route path="/user" exact component={User} />
+        <Route path="/" exact component={FormOne} />
+        <Route path="/formTwo" component={FormTwo} />
       </Switch>
     </div>
-  )
-}
+  </>
+);
 
-export default Routes
+export default Routes;

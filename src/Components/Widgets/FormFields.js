@@ -1,6 +1,8 @@
 import React from "react";
+import { validate } from "./validate";
 
 const FormFields = (props) => {
+  // console.log(props);
   const renderFields = () => {
     const formArray = [];
 
@@ -11,7 +13,7 @@ const FormFields = (props) => {
       });
     }
     // console.log(formArray);
-    return formArray.map((element, index) => {
+    return formArray.map((element) => {
       return (
         <div key={element.id} className="form_element">
           {renderTemplates(element)}
@@ -29,49 +31,58 @@ const FormFields = (props) => {
       case "input":
         // console.log(dataValues);
         formTemplate = (
-          <div>
+          <div className="form-group">
             {showLabel(dataValues.label, dataValues.labelText)}
             <input
               {...dataValues.config}
               value={dataValues.value}
               onChange={(event) => changeHandler(event, data.id, false)}
               onBlur={(event) => changeHandler(event, data.id, true)}
+              className="form-control"
             />
-            {showValidation(dataValues)}
+            <div className="error_label">
+              {showValidationMessage(dataValues)}
+            </div>
           </div>
         );
         break;
       // for a textarea
       case "textarea":
         formTemplate = (
-          <div>
+          <div className="form-group">
             {showLabel(dataValues.label, dataValues.labelText)}
             <textarea
               {...dataValues.config}
               value={dataValues.value}
               onChange={(event) => changeHandler(event, data.id)}
+              onBlur={(event) => changeHandler(event, data.id, true)}
+              className="form-control"
             ></textarea>
+            <div className="error_label">
+              {showValidationMessage(dataValues)}
+            </div>
           </div>
         );
         break;
       // for a select element
       case "select":
         formTemplate = (
-          <div>
+          <div className="form">
             {showLabel(dataValues.label, dataValues.labelText)}
             <select
               name={dataValues.config.name}
               value={dataValues.value}
               onChange={(event) => changeHandler(event, data.id)}
+              onBlur={(event) => changeHandler(event, data.id, true)}
+              className="form-control"
             >
-              {dataValues.config.options.map((option, index) => {
-                return (
-                  <option key={index} value={option.val}>
-                    {option.text}
-                  </option>
-                );
-              })}
+              <option value="">Select your age</option>
+              {props.ageOptions()}
             </select>
+
+            <div className="error_label">
+              {showValidationMessage(dataValues)}
+            </div>
           </div>
         );
         break;
@@ -93,6 +104,7 @@ const FormFields = (props) => {
     // console.log(newState)
     newState[keyID].value = event.target.value;
 
+    /* check for blur; i.e if blur event is triggered (a truthy value) on the element */
     if (blur) {
       let validData = validate(newState[keyID]);
 
@@ -101,44 +113,20 @@ const FormFields = (props) => {
     }
 
     newState[keyID].touched = blur;
-
+    // console.log(newState);
     props.change(newState);
   };
 
-  const validate = (element) => {
-    console.log(element);
-    const inputLength = element.validation.minLength;
-    let error = [true, ""];
-
-    if (inputLength) {
-      const valid = element.value.length >= inputLength;
-      console.log(valid);
-      const message = `${
-        !valid
-          ? `The input must be at least ${inputLength} characters long`
-          : ""
-      }`;
-      error = !valid ? [valid, message] : error;
-    }
-
-    if (element.validation.required) {
-      const valid = element.value.trim() !== "";
-      const message = `${!valid ? "This field is required" : ""}`;
-
-      error = !valid ? [valid, message] : error;
-    }
-
-    return error;
-  };
-
-  const showValidation = (data) => {
+  const showValidationMessage = (data) => {
     let errorMessage = null;
 
-    if (data.validation && !data.valid) {
+    /* check for validation */
+    if (data.validation && !data.valid && data.validationMessage) {
       errorMessage = (
-        <div className="label_error">{data.validationMessage}</div>
+        <div className="error_label">{data.validationMessage}</div>
       );
     }
+
     return errorMessage;
   };
 
